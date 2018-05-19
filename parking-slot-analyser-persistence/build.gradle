@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':parking-slot-analyser-domain')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

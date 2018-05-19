@@ -1,0 +1,8 @@
+rootProject.name = 'parking-slot-analyser'
+
+include 'parking-slot-analyser-domain'
+include 'parking-slot-analyser-runtime'
+include 'parking-slot-analyser-persistence'
+include 'parking-slot-analyser-container'
+include 'parking-slot-analyser-processor'
+
