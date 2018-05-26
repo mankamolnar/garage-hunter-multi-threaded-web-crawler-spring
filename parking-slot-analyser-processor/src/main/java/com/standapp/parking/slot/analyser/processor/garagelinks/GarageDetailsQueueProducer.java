@@ -21,5 +21,4 @@ public class GarageDetailsQueueProducer {
 
     links.forEach(link -> jobQueue.add(garageDetailsPageFactory.newGaragePageJobFactory(link)));
   }
-
 }
