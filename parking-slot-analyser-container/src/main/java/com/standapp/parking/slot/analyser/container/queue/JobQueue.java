@@ -17,7 +17,12 @@ public class JobQueue {
   }
 
   public Optional<Job> removeFirst() {
-    return Optional.of(jobs.poll());
+    Job first = jobs.poll();
+
+    if (first != null) {
+      return Optional.of(first);
+    }
+    return Optional.empty();
   }
 
   public boolean isEmpty() {
