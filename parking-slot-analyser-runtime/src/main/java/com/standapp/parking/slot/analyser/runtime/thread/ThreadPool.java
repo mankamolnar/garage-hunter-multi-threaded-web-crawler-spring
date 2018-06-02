@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -12,27 +13,32 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ThreadPool {
 
-  private static final int MAX_NUMBER_OF_THREADS = 5;
   private static final AtomicInteger CURRENTLY_RUNNING_THREADS = new AtomicInteger();
 
+  @Value("${parking.slot.analyser.threads.cores}")
+  private int numberOfThreads;
+
+  @Value("${parking.slot.analyser.threads.max-cores}")
+  private int maxNumberOfThreads;
+
   private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
-  private final ThreadBody threadBody;
+  private final JobExecutor jobExecutor;
 
   public void startThreads() {
-    IntStream.range(0, MAX_NUMBER_OF_THREADS)
+    IntStream.range(0, maxNumberOfThreads)
         .forEach(index -> {
           threadPoolTaskExecutor.execute(new Thread(() -> {
             log.info("Thread is starting");
 
-            threadBody.run();
+            jobExecutor.execute();
 
             log.info("Closing thread!");
           }));
     });
   }
 
-  public static int incrementAndGet() {
-    return CURRENTLY_RUNNING_THREADS.incrementAndGet();
+  public static void incrementAndGet() {
+    CURRENTLY_RUNNING_THREADS.incrementAndGet();
   }
 
   public static int decrementAndGet() {
