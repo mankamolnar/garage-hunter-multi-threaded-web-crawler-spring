@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ThreadBody {
+public class JobExecutor {
 
   private final JobQueue jobQueue;
   private final ResultPageQueueConsumer resultPageQueueConsumer;
@@ -23,7 +23,7 @@ public class ThreadBody {
   private final GaragePersister garagePersister;
   private final RentedOutGarageSigner rentedOutGarageSigner;
 
-  public void run() {
+  public void execute() {
     ThreadPool.incrementAndGet();
 
     consumeJobQueue();
