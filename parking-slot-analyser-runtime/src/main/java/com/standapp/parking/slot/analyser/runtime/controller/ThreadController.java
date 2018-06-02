@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/with-threads")
 @RequiredArgsConstructor
+@Deprecated
 public class ThreadController {
 
   private final ResultPageQueueProducer resultPageQueueProducer;
@@ -23,6 +24,6 @@ public class ThreadController {
     resultPageQueueProducer.produceResultPageUrls();
     threadPool.startThreads();
 
-    return "gomba";
+    return "[{\"OK\":201}]";
   }
 }
