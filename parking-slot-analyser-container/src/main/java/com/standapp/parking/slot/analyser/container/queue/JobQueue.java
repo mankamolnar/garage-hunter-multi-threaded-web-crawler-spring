@@ -8,11 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JobQueue {
 
-  private ConcurrentLinkedQueue<Job> jobs;
-
-  public JobQueue() {
-    this.jobs = new ConcurrentLinkedQueue<>();
-  }
+  private ConcurrentLinkedQueue<Job> jobs = new ConcurrentLinkedQueue<>();
 
   public void add(Job job) {
     if (!jobs.contains(job)) {
